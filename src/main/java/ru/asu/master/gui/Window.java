@@ -4,29 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    private static final int WINDOW_WIDTH = 600;
-    private static final int WINDOW_HEIGHT = 800;
-    private JPanel projectPanel;
+    private static final int WINDOW_WIDTH = 320;
+    private static final int WINDOW_HEIGHT = 400;
+    private ProjectPanel projectPanel;
 
     public Window(String title) throws HeadlessException {
         super(title);
         setSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         getContentPane().setLayout(new GridLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         setVisible(true);
     }
 
     private void initComponents() {
-        JPanel mainPanel = new JPanel();
-        projectPanel = new ProjectPanel();
-        setJMenuBar(new WindowMenuBar());
-        mainPanel.add(projectPanel);
-        getContentPane().add(mainPanel);
+        setLayout(new GridBagLayout());
+        projectPanel = new ProjectPanel(WINDOW_WIDTH, WINDOW_HEIGHT / 2);
+        add(projectPanel, new GridBagConstraints(0, 0, 1, 1, 0, 0,
+                GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     }
 
-    public JPanel getProjectPanel() {
+    public ProjectPanel getProjectPanel() {
         return projectPanel;
     }
 }

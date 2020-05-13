@@ -2,6 +2,9 @@ package ru.asu.master.calculate.model;
 
 import ru.asu.master.core.model.InputData;
 
+/**
+ * Реализация треугольной модели распределения
+ */
 public class TriangleModel extends MathModel {
     private final double k;
 

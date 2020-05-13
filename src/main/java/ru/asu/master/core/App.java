@@ -8,6 +8,10 @@ public class App {
     public static void main(String[] args) {
         Log logger = LoggerFactory.createLogger("App");
         logger.info("App start");
-        MainController mainController = new MainController();
+        try {
+            new MainController();
+        } catch (Exception ex) {
+            logger.error(ex, ex);
+        }
     }
 }
