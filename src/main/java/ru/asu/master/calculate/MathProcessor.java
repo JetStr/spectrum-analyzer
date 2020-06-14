@@ -1,8 +1,6 @@
 package ru.asu.master.calculate;
 
-import ru.asu.master.calculate.model.MathModel;
-import ru.asu.master.calculate.model.MathModelType;
-import ru.asu.master.calculate.model.TriangleModel;
+import ru.asu.master.calculate.model.*;
 import ru.asu.master.core.io.IOLayer;
 import ru.asu.master.core.io.NotSupportedDataLoaderException;
 import ru.asu.master.core.model.InputDataCreationException;
@@ -23,7 +21,7 @@ public class MathProcessor {
         mathModel = getMathModel(settings);
     }
 
-    public double[] calculate() {
+    public CalculationResult calculate() {
         return mathModel.calculate();
     }
 
@@ -31,14 +29,19 @@ public class MathProcessor {
         String type = settings.getModelType();
         if (Objects.equals(MathModelType.TRIANGLE, type)) {
             return new TriangleModel("Треугольная",
-                    ioLayer.getInputData(dataFile.getAbsolutePath()),
                     settings.getT1(),
-                    settings.getT0(),
                     settings.getT2(),
+                    settings.getT3(),
+                    ioLayer.getInputData(dataFile.getAbsolutePath(), "idealSpectrum.xlsx"),
                     settings.getK());
         } else {
-            //todo пока что null, для параболы нет реализации
-            return null;
+            return new ParabolaModel(
+                    "Параболическая",
+                    settings.getT1(),
+                    settings.getT2(),
+                    settings.getT3(),
+                    ioLayer.getInputData(dataFile.getAbsolutePath(), "idealSpectrum.xlsx"),
+                    settings.getK());
         }
     }
 }

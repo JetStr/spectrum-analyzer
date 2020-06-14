@@ -12,24 +12,24 @@ import java.io.IOException;
 public class ExcelDataLoader implements DataLoader {
 
     @Override
-    public InputData loadData(String fileName) throws IOException, InputDataCreationException {
-        return loadData(new File(fileName));
+    public InputData loadData(String fileName, String idealFileName) throws IOException, InputDataCreationException {
+        return loadData(new File(fileName), new File(idealFileName));
     }
 
     @Override
-    public InputData loadData(File file) throws IOException, InputDataCreationException {
-        double[] waveLengths;
-        double[] signals;
+    public InputData loadData(File inputData, File idealSpectrum) throws IOException, InputDataCreationException {
+        return new InputData(parseXlsFile(inputData), parseXlsFile(idealSpectrum));
+    }
+
+    private static double[] parseXlsFile(File file) throws IOException {
+        double[] data;
         try (XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(file))) {
             XSSFSheet sheet = book.getSheetAt(0);
-            //todo последняя ячейка в xlsx не читается
-            waveLengths = new double[sheet.getLastRowNum()];
-            signals = new double[sheet.getLastRowNum()];
+            data = new double[sheet.getLastRowNum()];
             for (int i = 0; i < sheet.getLastRowNum(); i++) {
-                waveLengths[i] = sheet.getRow(i).getCell(0).getNumericCellValue();
-                signals[i] = sheet.getRow(i).getCell(1).getNumericCellValue();
+                data[i] = sheet.getRow(i).getCell(0).getNumericCellValue();
             }
         }
-        return new InputData(waveLengths, signals);
+        return data;
     }
 }

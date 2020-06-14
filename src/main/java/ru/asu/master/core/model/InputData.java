@@ -10,32 +10,32 @@ public class InputData {
      * Массив длин волн
      */
     private final double[] waveLengths;
-    /**
-     * Массив значений сигналов
-     */
-    private final double[] signals;
+    private final double[] idealSpectrum;
 
-    public InputData(double[] waveLengths, double[] signals) throws InputDataCreationException {
-        if (waveLengths.length != signals.length) {
-            throw new InputDataCreationException("Длина массива длин волн не равна длине массива сигналов");
+    public InputData(double[] waveLengths, double[] idealSpectrum) throws InputDataCreationException {
+        if (waveLengths == null || waveLengths.length == 0) {
+            throw new InputDataCreationException("Неверное значение для массива длин волн");
         }
+        if (idealSpectrum == null || idealSpectrum.length == 0) {
+            throw new InputDataCreationException("Неверное значение для массива длин волн");
+        }
+        this.idealSpectrum = idealSpectrum;
         this.waveLengths = waveLengths;
-        this.signals = signals;
     }
 
     public double[] getWaveLengths() {
         return waveLengths;
     }
 
-    public double[] getSignals() {
-        return signals;
+    public double[] getIdealSpectrum() {
+        return idealSpectrum;
     }
 
     @Override
     public String toString() {
         return "InputData{" +
                 "waveLengths=" + Arrays.toString(waveLengths) +
-                ", signals=" + Arrays.toString(signals) +
+                ", idealSpectrum=" + Arrays.toString(idealSpectrum) +
                 '}';
     }
 }

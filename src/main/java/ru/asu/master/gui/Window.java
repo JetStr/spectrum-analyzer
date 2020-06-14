@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    private static final int WINDOW_WIDTH = 320;
-    private static final int WINDOW_HEIGHT = 400;
+    private static final int WINDOW_WIDTH = 400;
+    private static final int WINDOW_HEIGHT = 420;
     private ProjectPanel projectPanel;
 
     public Window(String title) throws HeadlessException {
