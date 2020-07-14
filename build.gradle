@@ -22,9 +22,17 @@ tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
 }
 
+task copyToLib(type: Copy) {
+    into "$buildDir/libs/lib"
+    from configurations.runtimeClasspath
+}
+
+build.dependsOn copyToLib
+
 jar {
     manifest {
-        attributes "author": "Jetstream"
+        attributes( ["author": "Jetstream",
+                'Main-Class': 'ru.asu.master.core.App'])
     }
 
     from {
